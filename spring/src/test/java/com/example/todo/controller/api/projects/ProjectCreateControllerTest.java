@@ -7,9 +7,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import com.example.todo.dto.request.projects.ProjectCreateRequest;
 import com.example.todo.entity.Project;
 import com.example.todo.service.projects.ProjectCreateService;
-import com.example.todo.dto.request.projects.ProjectCreateRequest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -32,8 +32,7 @@ class ProjectCreateControllerTest {
   private MockMvc mockMvc;
 
   /**
-   * @MockBean SpringのアプリケーションコンテキストにモックされたBeanを登録する。
-   *           ProjectCreateServiceとProjectListServiceはモックとして登録され、このテスト内で使用される。
+   * @MockBean SpringのアプリケーションコンテキストにモックされたBeanを登録する。 ProjectCreateServiceはモックとして登録され、このテスト内で使用される。
    *           これにより、これらのサービスの実際の動作をシミュレートしながら、依存する他のコンポーネントの挙動をコントロールすることができる。
    */
   @MockBean
@@ -63,7 +62,6 @@ class ProjectCreateControllerTest {
             "summary": "This is a new project"
         }
         """;
-
 
     // テスト対象のコントローラの挙動を検証
     // mockMvc.perform()でHTTPリクエストをシミュレートし、コントローラの動作を検証できる。
