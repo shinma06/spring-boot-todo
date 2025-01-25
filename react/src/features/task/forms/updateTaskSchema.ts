@@ -30,7 +30,7 @@ export const generateUpdateTaskSchema = (model: Task): UpdateTaskSchemaType => {
     tagIds: (model.tags ?? []).map((tag) => tag.id),
     name: model.name,
     priority: model.priority.value,
-    memo: model.memo,
+    memo: model.memo ?? "",
     deadlineAt: model.deadlineAt,
     completedAt: model.completedAt,
   };
