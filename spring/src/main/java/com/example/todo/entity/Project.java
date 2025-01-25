@@ -8,27 +8,22 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * @Data Lombokのアノテーション。クラス内の全てのフィールドに対して、getter、setter、toString、equals、hashCodeなどのメソッドを自動生成する。
  *       このアノテーションが付与されたクラスは、データクラスとして振る舞う。
- *
  * @Entity JPA（Java Persistence API）のアノテーション。エンティティクラスであることを示す。
  *         このアノテーションが付与されたクラスは、データベースのテーブルと1対1でマッピングされる。
- *
  * @Table エンティティクラスに付与するアノテーション。テーブル名を指定する。
  */
 @Data
 @Entity
 @Table(name = "projects")
-@EqualsAndHashCode(callSuper = false) // 親クラスの equals, hashCode を使わない（これを設定しないと警告が出る）
-public class Project extends BaseEntity {
+public class Project {
 
   /**
-   * @Id JPA（Java Persistence API）のアノテーション。エンティティの主キーであることを示す。
+   * @Id JPA（Java Persistence API）のアノテーション。エンティティの主キー（PRIMARY KEY）であることを示す。
    *     このアノテーションが付与されたフィールドは、データベースのテーブルにおいて主キーとして扱われる。
-   *
    * @GeneratedValue JPA（Java Persistence API）のアノテーション。主キーの生成方法を指定する。
    */
   @Id
@@ -56,4 +51,10 @@ public class Project extends BaseEntity {
    */
   @Column(name = "deleted_at")
   private LocalDateTime deletedAt;
+
+  @Column(name = "created_at", nullable = false)
+  private LocalDateTime createdAt;
+
+  @Column(name = "updated_at", nullable = false)
+  private LocalDateTime updatedAt;
 }
