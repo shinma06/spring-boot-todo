@@ -1,19 +1,17 @@
 package com.example.todo.dto.response.tasks;
 
+import java.time.LocalDateTime;
 import com.example.todo.entity.Project;
 import com.example.todo.entity.Task;
 import com.example.todo.util.TimeUtil;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 public class TaskBaseResponse {
+
   private Integer id;
 
   private Project project;
-
-  private Integer parentId;
 
   private String name;
 
@@ -35,13 +33,17 @@ public class TaskBaseResponse {
     this.name = task.getName();
     this.priority = new TaskPriorityResponse(task.getPriority());
     this.memo = task.getMemo();
-    this.deadlineAt = this.formatDateTime(task.getDeadlineAt());
-    this.completedAt = this.formatDateTime(task.getCompletedAt());
-    this.createdAt = this.formatDateTime(task.getCreatedAt());
-    this.updatedAt = this.formatDateTime(task.getUpdatedAt());
+    this.deadlineAt = this.formatFromDateTimeToYmdHm(task.getDeadlineAt());
+    this.completedAt = this.formatFromDateTimeToYmdHm(task.getCompletedAt());
+    this.createdAt = this.formatFromDateTimeToYmdHm(task.getCreatedAt());
+    this.updatedAt = this.formatFromDateTimeToYmdHm(task.getUpdatedAt());
   }
 
-  private String formatDateTime(LocalDateTime dateTime) {
-    return dateTime != null ? TimeUtil.Format.toYmdhm(dateTime) : null;
+  private String formatFromDateTimeToYmdHm(LocalDateTime dateTime) {
+    if (dateTime == null) {
+      return null;
+    }
+
+    return TimeUtil.Format.toYmdHm(dateTime);
   }
 }

@@ -27,27 +27,27 @@ public class TimeUtil {
     /**
      * 時間を yyyy-MM-dd HH:mm 形式の文字列に変換する。
      *
-     * @param time
+     * @param time 時間
      * @return yyyy-MM-dd HH:mm 形式の文字列
      */
-    public static String toYmdhm(TemporalAccessor time) {
+    public static String toYmdHm(TemporalAccessor time) {
       return format(time, ymdhm);
     }
 
     /**
      * 時間を yyyy-MM-dd HH:mm:ss 形式の文字列に変換する。
      *
-     * @param time
+     * @param time 時間
      * @return yyyy-MM-dd HH:mm:ss 形式の文字列
      */
-    public static String toYmdhms(TemporalAccessor time) {
+    public static String toYmdHms(TemporalAccessor time) {
       return format(time, ymdhms);
     }
 
     /**
      * 時間を yyyy-MM 形式の文字列に変換する。
      *
-     * @param time
+     * @param time 時間
      * @return yyyy-MM 形式の文字列
      */
     public static String toYm(TemporalAccessor time) {
@@ -55,32 +55,25 @@ public class TimeUtil {
     }
 
     /**
-     * 時間を yyyyMMdd 形式の文字列に変換する。
+     * 時間を yyyyMM 形式の数値に変換する。
      *
      * @param time
-     * @return yyyyMMdd 形式の文字列
+     * @return yyyyMM 形式の数値
      */
     public static Integer toYmdI(TemporalAccessor time) {
       return Integer.parseInt(format(time, ymdI));
     }
 
     /**
-     * 時間を yyyyMM 形式の文字列に変換する。
+     * 時間を yyyyMM 形式の数値に変換する。
      *
      * @param time
-     * @return yyyyMM 形式の文字列
+     * @return yyyyMM 形式の数値
      */
     public static Integer toYmI(TemporalAccessor time) {
       return Integer.parseInt(format(time, ymI));
     }
 
-    /**
-     * 時間を指定されたフォーマットの文字列に変換する。
-     *
-     * @param time 時間
-     * @param format フォーマット
-     * @return フォーマットされた文字列
-     */
     private static String format(TemporalAccessor time, String format) {
       return DateTimeFormatter.ofPattern(format).format(time);
     }
