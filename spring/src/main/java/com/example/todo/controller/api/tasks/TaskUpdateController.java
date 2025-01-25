@@ -1,7 +1,6 @@
 package com.example.todo.controller.api.tasks;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,9 +19,9 @@ public class TaskUpdateController {
     this.taskUpdateService = taskUpdateService;
   }
 
-  @PutMapping
   public ResponseEntity<TaskBaseResponse> invoke(@Valid @RequestBody TaskUpdateRequest request) {
     TaskBaseResponse response = this.taskUpdateService.invoke(request);
+
     return ResponseEntity.ok(response);
   }
 }
