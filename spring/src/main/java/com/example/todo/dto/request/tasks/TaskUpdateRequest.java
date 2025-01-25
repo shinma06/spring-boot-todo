@@ -2,7 +2,7 @@ package com.example.todo.dto.request.tasks;
 
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
-import com.example.todo.enums.task.TaskPriority;
+import com.example.todo.enums.TaskPriority;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -13,6 +13,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TaskUpdateRequest {
 
+  /**
+   * @Positive 値が正の数であることを表す
+   */
   @NotNull
   @Positive
   private final Integer id;
