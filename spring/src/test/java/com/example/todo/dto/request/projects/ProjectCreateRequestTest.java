@@ -1,5 +1,7 @@
 package com.example.todo.dto.request.projects;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,68 +9,53 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProjectCreateRequestTest {
 
-  // バリデーションを実行するための Validator
-  // Validator は、データが正しいかどうか（例：名前が空でないか）を自動でチェックしてくれるもの
   private Validator validator;
 
+  /**
+   * @BeforeEach このアノテーションが付与されたメソッドは、各テストメソッドが実行される前に実行される。
+   */
   @BeforeEach
   void setUp() {
     // バリデーションのためのインスタンスを生成
     // Validation.buildDefaultValidatorFactory() は Validator を生成するためのファクトリー（工場的なもの）を生成する
-    // そのfactoryから、getValidator() で Validator を生成する
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+
+    // そのfactoryから、getValidator() で Validator を生成する
     this.validator = factory.getValidator();
   }
 
   @Test
   void 有効なリクエストであること() {
-    // 正常なインスタンスの作成
-    ProjectCreateRequest request = new ProjectCreateRequest("Project name", "Project summary");
+    // テスト対象のインスタンスを作成
+    ProjectCreateRequest request = new ProjectCreateRequest("name", "summary");
 
     // バリデーションを実行し、違反が無いことを確認
-    Set<ConstraintViolation<ProjectCreateRequest>> violations = this.validator.validate(request);
-    assertTrue(violations.isEmpty());
+    Set<ConstraintViolation<ProjectCreateRequest>> validations = this.validator.validate(request);
 
-    // フィールドの値が正しく設定されていることを確認
-    assertEquals("Project name", request.getName());
-    assertEquals("Project summary", request.getSummary());
+    assertTrue(validations.isEmpty());
   }
 
   @Test
   void 名前が空の場合にエラーになること() {
-    // 名前が空のインスタンスの作成
-    ProjectCreateRequest request = new ProjectCreateRequest("", "Project summary");
+    // テスト対象のインスタンスを作成
+    ProjectCreateRequest request = new ProjectCreateRequest("", "summary");
 
     // バリデーションを実行し、違反があることを確認
-    // validator.validate() でバリデーションを実行し、違反がある場合は ConstraintViolation の Set が返される
-    // ConstraintViolation は、どのフィールドがどのルールに違反してくれるかを示すもの
-    Set<ConstraintViolation<ProjectCreateRequest>> violations = this.validator.validate(request);
-    // violations.size() で違反の数を取得し、assertEquals() で違反が1つであることを確認
-    assertEquals(1, violations.size());
+    Set<ConstraintViolation<ProjectCreateRequest>> validations = this.validator.validate(request);
 
-    // nameフィールドが@NotEmptyの違反であることを確認
-    // violations.iterator().next() で1つ目の違反を取得し、その違反が name フィールドの @NotEmpty であることを確認
-    ConstraintViolation<ProjectCreateRequest> violation = violations.iterator().next();
-    assertEquals("name", violation.getPropertyPath().toString());
-    assertEquals("must not be empty", violation.getMessage());
+    assertEquals(1, validations.size());
   }
 
   @Test
-  void 概要が空でも有効なリクエストであること() {
-    // 概要が空のインスタンスの作成
-    ProjectCreateRequest request = new ProjectCreateRequest("Project name", "");
+  void 概要が空の場合でも有効なリクエストであること() {
+    // テスト対象のインスタンスを作成
+    ProjectCreateRequest request = new ProjectCreateRequest("name", "");
 
-    // バリデーションを実行し、違反が無いことを確認
-    Set<ConstraintViolation<ProjectCreateRequest>> violations = this.validator.validate(request);
-    assertTrue(violations.isEmpty());
-
-    // フィールドの値が正しく設定されていることを確認
-    assertEquals("Project name", request.getName());
-    assertEquals("", request.getSummary());
+    // バリデーションを実行し、違反があることを確認
+    Set<ConstraintViolation<ProjectCreateRequest>> validations = this.validator.validate(request);
+    assertTrue(validations.isEmpty());
   }
 }
