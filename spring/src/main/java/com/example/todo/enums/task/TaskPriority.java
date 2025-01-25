@@ -1,7 +1,7 @@
-package com.example.todo.enums.task;
+package com.example.todo.enums;
 
-import lombok.Getter;
 import java.util.Arrays;
+import lombok.Getter;
 
 /**
  * タスクの優先度を表す列挙型（enum）
@@ -10,9 +10,10 @@ import java.util.Arrays;
  */
 @Getter
 public enum TaskPriority {
+
   // 低, 中, 高 の3つの値を持つ
-  // key: value の関係性として、LOW: 0, MEDIUM: 1, HIGH: 2 とする。
-  // +α として、それぞれの値に対応するラベルも持つ。（例: LOW のラベルは "低"）
+  // key: value の関係性として、LOW: 0, MEDIUM: 1, HIGH: 2 とする
+  // +α として、それぞれの値に対応するラベルを持つ（例: LOW のラベルは "低"）
   LOW(0, "低"), MEDIUM(1, "中"), HIGH(2, "高");
 
   private final int value;
@@ -24,7 +25,7 @@ public enum TaskPriority {
   }
 
   /**
-   * 値からTaskPriorityを取得する
+   * 値（value）から、TaskPriority を取得する
    *
    * @param value 優先度の値
    * @return TaskPriority

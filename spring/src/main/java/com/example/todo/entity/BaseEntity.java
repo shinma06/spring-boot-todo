@@ -22,17 +22,21 @@ public abstract class BaseEntity {
   @Column(name = "updated_at", nullable = false)
   private LocalDateTime updatedAt;
 
-  // 新規作成処理前に呼び出される。
+  /**
+   * @PrePersist JPA（Java Persistence API）のアノテーション。エンティティの新規作成処理が行われる前に呼び出される。
+   */
   @PrePersist
-  protected void onCreate() {
+  private void onCreate() {
     LocalDateTime now = LocalDateTime.now();
-    this.createdAt = now;
-    this.updatedAt = now;
+    this.setCreatedAt(now);
+    this.setUpdatedAt(now);
   }
 
-  // 更新処理前に呼び出される。
+  /**
+   * @PreUpdate JPA（Java Persistence API）のアノテーション。エンティティの更新処理が行われる前に呼び出される。
+   */
   @PreUpdate
-  protected void onUpdate() {
-    this.updatedAt = LocalDateTime.now();
+  private void onUpdate() {
+    this.setUpdatedAt(LocalDateTime.now());
   }
 }
