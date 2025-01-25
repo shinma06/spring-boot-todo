@@ -7,6 +7,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TaskSearchRequest {
 
-  // プロジェクト単位で絞り込みするためのパラメータ
+  // プロジェクト単位で絞り込みをするために使用するパラメータ
   private final Integer projectId;
 }
