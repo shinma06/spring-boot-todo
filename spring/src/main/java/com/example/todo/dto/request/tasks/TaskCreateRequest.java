@@ -1,6 +1,6 @@
 package com.example.todo.dto.request.tasks;
 
-import com.example.todo.enums.task.TaskPriority;
+import com.example.todo.enums.TaskPriority;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -18,7 +18,7 @@ public class TaskCreateRequest {
   /**
    * リクエストされるJSONデータでは 0, 1, 2 で受け取る。
    *
-   * 戻り値の型を TaskPriority にしているため、TaskPriority の値に自動変換される。
+   * 型を TaskPriority にしているため、TaskPriority の値に自動変換される。
    */
   @NotNull
   private final TaskPriority priority;
